@@ -1,0 +1,14 @@
+{
+  "name": "pdf",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "puppeteer": "^1.14.0"
+  }
+}

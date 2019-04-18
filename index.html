@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PDF</title>
+
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      button {
+        border-radius: 8px;
+        border: 0;
+        outline: 0;
+        color: #fff;
+        cursor: pointer;
+        padding: 8px 16px;
+        background: grey;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <button type="button" onclick="savePDF()">Download</button>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <script>
+    const API_URL = "http://localhost:3000";
+
+    function getPDF() {
+      return axios.get(`${API_URL}/pdf?url=https://avra-v0.herokuapp.com`, {
+        responseType: "arraybuffer",
+        headers: {
+          Accept: "application/pdf"
+        }
+      });
+    }
+
+    savePDF = () => {
+      return getPDF() // API call
+        .then(response => {
+          const blob = new Blob([response.data], { type: "application/pdf" });
+          const link = document.createElement("a");
+          link.href = window.URL.createObjectURL(blob);
+          link.download = `your-file-name.pdf`;
+          link.click();
+        })
+        .catch(err => console.log(err));
+    };
+  </script>
+</html>
